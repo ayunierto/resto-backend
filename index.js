@@ -4,13 +4,11 @@ require('dotenv').config();
 
 const port = process.env.PORT;
 
+// Public Dir
 app.use( express.static('public') );
 
-app.get('/', (req, res) => {
-  res.json({
-    ok: true
-  })
-})
+// Routes
+app.use('/api/auth', require('./routes/auth'));
 
 app.listen(port, () => {
   console.log(`Server on port ${port}`);
