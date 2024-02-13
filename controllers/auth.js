@@ -3,14 +3,16 @@ const { response } = require('express');
 const login = (req, res = response) => {
     res.json({
         ok: true,
-        msg: 'login'
+        msg: 'login',
+        user: req.body
     });
 }
 
 const register = (req, res = response) => {
     res.json({
         ok: true,
-        msg: 'register'
+        msg: 'register',
+        user: req.body
     });
 }
 
