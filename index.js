@@ -1,8 +1,12 @@
 const express = require('express');
+const {dbConnection} = require('./database/config');
 const app = express();
 require('dotenv').config();
 
 const port = process.env.PORT;
+
+// Database
+dbConnection();
 
 // Public Dir
 app.use( express.static('public') );
