@@ -11,20 +11,31 @@ const login = (req, res = response) => {
 
 const register = async (req, res = response) => {
 
+    const { email } = req.body;
+
     try {
-        const user = new User( req.body );
+
+        let user = await User.findOne({ email });
+        if ( user ) {
+            return res.status(400).json({
+                ok: false,
+                msg: "Un usuario ya existe con ese correo."
+            });
+        }
+
+        user = new User( req.body );
         await user.save();
 
         res.status(201).json({
             ok: true,
-            msg: 'register',
-            user: req.body
+            uid: user.id,
+            nama: user.name
         });
     } catch (error) {
         console.log(error)
-        res.json({
+        res.status(500).json({
             ok: false,
-            msg: "El correo ya esta registrado."
+            msg: "Error en registro."
         });
     }
 }
