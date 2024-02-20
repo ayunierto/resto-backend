@@ -20,6 +20,7 @@ app.use( express.json() );
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/ingredients', require('./routes/ingredients'));
 
 app.listen(port, () => {
   console.log(`Server on port ${port}`);
