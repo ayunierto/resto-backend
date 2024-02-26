@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    container_name: ${MONGO_DB_NAME}
+    image: mongo:7.0.5
+    volumes:
+      - ./mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    ports:
+      - "27017:27017"
+    restart: always
+    command: ["--auth"]
+  
+  api:
+    depends_on:
+      - db
+    image: node:20.11.1-alpine3.19
+    working_dir: /app
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/app
+
+    restart: always
+    
+    command: sh -c "npm i && npm start"
